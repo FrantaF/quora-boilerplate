@@ -7,9 +7,12 @@ class CreateUsers < ActiveRecord::Migration[5.0]
 
          t.string :name            
          t.string :email
-         t.string :password      
-
+         t.string :password    
+         t.string :password_digest
          t.timestamps
+
+         add_reference :users, :questions, index: true
+         add_reference :users, :answers, index: true
       end
    end
 end
