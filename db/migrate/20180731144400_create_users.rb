@@ -11,8 +11,8 @@ class CreateUsers < ActiveRecord::Migration[5.0]
          t.string :password_digest
          t.timestamps
 
-         add_reference :users, :questions, index: true
-         add_reference :users, :answers, index: true
+         t.references :user, index: true
+         t.references :question, index: true
       end
    end
 end
