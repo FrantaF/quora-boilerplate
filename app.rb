@@ -1,7 +1,7 @@
 require_relative './config/init.rb'
 require 'sinatra/base'
 set :run, true
-
+enable :sessions
 # class App < Sinatra::Base
 
   # Login page
@@ -13,12 +13,14 @@ set :run, true
     erb :"login"
   end
 
-  post '/login' do        
+  post '/login' do  
     p params[:user]
-    if User.find_by(email: params[:user][:email]).try(:authenticate, params[:user][:password]) == false 
+    if User.find_by(email: params[:user][:email]).try(:authenticate, params[:user][:password]) == false
       redirect '/login'
     else
-      redirect '/profile'      
+      id = User.find_by(email: params[:user][:email]).id.to_s
+      session[:id] = id
+      redirect "/profile"      
     end
   end
 
@@ -41,11 +43,17 @@ set :run, true
   end
 
   #Profile page
-  get "/profile" do    
-    @display = User.last.email
+  get "/profile" do
+    @user = User.find(session[:id])
+    if @user == nil
+      redirect '/login'
+    end
     erb :"profile"
   end
 
 
-  
+
+
+
+
 

@@ -18,8 +18,10 @@ gem 'thin'
 
 gem 'shotgun'
 
+gem 'sysrandom'
+
 group :development do
-  gem "shotgun"
+ gem "shotgun"
 end
 
 group :production do
