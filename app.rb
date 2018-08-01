@@ -13,8 +13,7 @@ enable :sessions
     erb :"login"
   end
 
-  post '/login' do  
-    p params[:user]
+  post '/login' do      
     if User.find_by(email: params[:user][:email]).try(:authenticate, params[:user][:password]) == false
       redirect '/login'
     else
@@ -28,7 +27,6 @@ enable :sessions
   get "/registration" do    
     erb :"registration"
   end
-
 
   post '/register' do
     user = User.new(params[:user])     
@@ -44,11 +42,23 @@ enable :sessions
 
   #Profile page
   get "/profile" do
+
     @user = User.find(session[:id])
     if @user == nil
       redirect '/login'
     end
+
+
+
+
     erb :"profile"
+  end
+
+  #Logout
+  get "/logout" do
+    session[:id] = nil
+    redirect '/login'
+
   end
 
 
