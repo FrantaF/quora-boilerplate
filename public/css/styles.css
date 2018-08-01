@@ -2,16 +2,16 @@
 	margin-bottom: 0px;
 }
 
-/* Styling search bar and button */
-.topnav .search-container {
-	float: right;
-}
+.navbar {
+	/*#DCDCDC;*/
+	background-color: #F0B2b2; 	
+	height: 100px;	
+	position: fixed;
 
-.topnav input[type=text] {
-	padding: 6px;
-	margin-top: 8px;
-	font-size: 17px;
-	border: none;
+}
+.navbar-nav .navbar-center {
+	position: absolute;
+	left: 50%;	
 }
 
 body{
