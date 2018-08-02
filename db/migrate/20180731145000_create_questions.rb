@@ -11,3 +11,5 @@ class CreateQuestions < ActiveRecord::Migration[5.0]
       end
    end
 end
+
+p Question.all
