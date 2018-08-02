@@ -1,34 +1,56 @@
  <!--Navbar Top Level-->
  <nav class="navbar topnav navbar-inverse" role="navigation">
   <div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav navbar-left" style="position: absolute;
-    left: 19%;">
+    <ul class="nav navbar-nav navbar-left" style="position: absolute; left: 19%;">
 
-    <li>
-      <a class="navbar-brand" href="questions">Quora</a>
-    </li>
+      <li>
+        <a class="navbar-brand" href="questions">Quora</a>
+      </li>
 
-    <li>
-      <a class="nav-link" href="questions"><span class="fa fa-question fa-lg"></span> Quesitons</a>
-    </li>
+      <li>
+        <a class="nav-link" href="questions"><span class="fa fa-question fa-lg"></span> Quesitons</a>
+      </li>
 
-  </ul>
-  <ul class="nav navbar-nav navbar-right" style="position: absolute;
-  right: 20%;">        
+    </ul>
+    <ul class="nav navbar-nav navbar-right" style="position: absolute; right: 20%;">        
 
-  <li>
-   <a class="glyphicon glyphicon-cog" title="Settings"></a>
- </li>
+      <li>
+       <a class="glyphicon glyphicon-cog" title="Settings"></a>
+     </li>
 
- <li>
-   <a title="Logout" href="logout" class="glyphicon glyphicon-log-out"></a>
- </li>
+     <li>
+       <a title="Logout" href="logout" class="glyphicon glyphicon-log-out"></a>
+     </li>
 
-</ul>
-</div>
+   </ul>
+   
+ </div>
 </nav><!-- Nav End -->
 
 <div class="container main-content">
+
+  <form method="post" action="/question">
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <h4 class="col-sm-offset-4"><label for="inputs">What is your Question?</label></h4>
+          <input class="form-control input-sm" id="inputsm" type="text" name="user[question]">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <button type="submit" value="question" class="form-control btn btn-success"/>Post Question</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+
 
   <div class="container" style="margin-top: 30px;">
     <div class="well">
@@ -37,69 +59,35 @@
           <img class="media-object" src="http://placekitten.com/150/150">
         </a>
         <div class="media-body">
-          <h4 class="media-heading">Receta 1</h4>
+          <!-- this will be heading retrieved from a table -->
+          <h4 class="media-heading">Receta 1</h4>   
+          <!-- This will be a name of the author retrieved based on user id  -->
           <p class="text-right">By Francisco</p>
+          <!-- This will be content retrieved from quesiton:content column -->
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
             Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
             dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
           Aliquam in felis sit amet augue.</p>
           <ul class="list-inline list-unstyled">
+            <!-- This will be a time since posting calculated based on time created and current time -->
             <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
             <li>|</li>
+            <!-- This number will be a count of question_id in the answer table -->
+            <!-- On click event will triger JQuery code and will display the answers -->
             <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
             <li>|</li>
             <li>
-             <span class="glyphicon glyphicon-star"></span>
-             <span class="glyphicon glyphicon-star"></span>
-             <span class="glyphicon glyphicon-star"></span>
-             <span class="glyphicon glyphicon-star"></span>
-             <span class="glyphicon glyphicon-star-empty"></span>
-           </li>
-           <li>|</li>
-           <li>
-            <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
-            <span><i class="fa fa-facebook-square"></i></span>
-            <span><i class="fa fa-twitter-square"></i></span>
-            <span><i class="fa fa-google-plus-square"></i></span>
-          </li>
-        </ul>
+              <!-- This will be the voting feature. Content will be sorted in the back-end and then printed out -->
+              <span class="glyphicon glyphicon-star"></span>
+              <span class="glyphicon glyphicon-star"></span>
+              <span class="glyphicon glyphicon-star"></span>
+              <span class="glyphicon glyphicon-star"></span>
+              <span class="glyphicon glyphicon-star-empty"></span>
+            </li>            
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-  <div class="well">
-    <div class="media">
-      <a class="pull-left" href="#">
-        <img class="media-object" src="http://placekitten.com/150/150">
-      </a>
-      <div class="media-body">
-        <h4 class="media-heading">Receta 2</h4>
-        <p class="text-right">By Anailuj</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-          Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-          dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-        Aliquam in felis sit amet augue.</p>
-        <ul class="list-inline list-unstyled">
-          <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
-          <li>|</li>
-          <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
-          <li>|</li>
-          <li>
-           <span class="glyphicon glyphicon-star"></span>
-           <span class="glyphicon glyphicon-star"></span>
-           <span class="glyphicon glyphicon-star"></span>
-           <span class="glyphicon glyphicon-star"></span>
-           <span class="glyphicon glyphicon-star-empty"></span>
-         </li>
-         <li>|</li>
-         <li>
-          <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
-          <span><i class="fa fa-facebook-square"></i></span>
-          <span><i class="fa fa-twitter-square"></i></span>
-          <span><i class="fa fa-google-plus-square"></i></span>
-        </li>
-      </ul>
-    </div>
-  </div>
 </div>
-</div>
-</div>
+
