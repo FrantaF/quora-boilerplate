@@ -12,12 +12,11 @@ enable :sessions
 
 
 
+get '/answers' do 
+   erb :'answers'
+end
 
 
-
-
-
-p Question.all
 
 
 

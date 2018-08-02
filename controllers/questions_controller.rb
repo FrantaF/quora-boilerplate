@@ -14,12 +14,15 @@ get "/questions" do
 
    @question_string = []
    
+   #display all questions
    questions = Question.all
    questions.each do |question|   
       @question_string.push(render_question("Random User", question.content))
-   end
-   
-   
+
+      #display answers to the question
+      
+   end   
+
    erb :"questions"
 end
 
@@ -51,8 +54,35 @@ def render_question(author_name, question)
    </ul>
    </div>
    </div>
+   <p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i>Delete Question</a></p>
    </div>
-   </div>'
+   </div>   
+   '
    return question_string
-
 end
+
+def render_answer(author_name, answer)
+   answer_string = '<!-- Answer -->
+   <div class="container">
+   <article class="row">
+
+   <div class="col-md-8 col-sm-8 col-sm-offset-2">
+   <div class="panel panel-default arrow left">
+   <div class="panel-heading right">Answer</div>
+   <div class="panel-body">
+   <header class="text-left">
+   <div class="comment-user"><i class="fa fa-user"></i>'"#{author_name}"'</div>
+   <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+   </header>
+   <div class="comment-post">
+   <p>'"#{answer}"'</p>
+   </div>
+   <p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i>Delete answer</a></p>
+   </div>
+   </div>
+   </div>
+   </article>
+   </div>'
+   return answer_string
+end
+
