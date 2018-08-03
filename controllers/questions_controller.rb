@@ -6,8 +6,7 @@ get "/questions" do
    end
 
    @questions = Question.all
-   @answers = Answer.all
-
+   @answers = Answer.all   
    erb :"questions"
 
 end
@@ -28,16 +27,81 @@ post '/answer' do
    redirect "/questions"
 end
 
-post "/delete_answer" do   
-   answer = Answer.find(params[:user][:delete_answer_id])
-   answer.delete   
+post "/delete_answer/:id" do   
+
+   #validate deletion rights and delete
+   answer = Answer.find(params[:id])
+   current_user
+
+   if answer.user_id == current_user.id 
+      answer.delete   
+      redirect "/questions"
+   end
+end
+
+post "/delete_question/:id" do
+
+   #validate deletion rights and delete
+   question = Question.find(params[:id])
+   current_user   
+
+   if question.user_id == current_user.id
+      question.delete   
+      redirect "/questions"
+   end
+end
+
+post "/vote_up/:id" do 
+
+   #validate whether user has previously voted
+   current_user
+   question_votes = Vote.where(answer_id: params[:id])
+   user_voted = false
+   
+   if question_votes != nil
+      question_votes.each do |vote|
+
+         if vote.user_id == current_user.id
+            vote.update(vote: 1)
+            user_voted = true
+         end
+
+      end
+   end
+
+   if !user_voted      
+      vote = Vote.new(:user_id => current_user.id, :answer_id =>  params[:id], :vote => 1)
+      vote.save
+      
+   end
+
    redirect "/questions"
 end
 
-post "/delete_question" do
-   question = Question.find(params[:user][:delete_question_id])
-   question.delete   
+
+post "/vote_down/:id" do
+
+   #validate whether user has previously voted
+   current_user
+   question_votes = Vote.where(answer_id: params[:id])
+   user_voted = false
+   
+   if question_votes != nil
+      question_votes.each do |vote|
+
+         if vote.user_id == current_user.id
+            vote.update(vote: -1)
+            user_voted = true
+         end
+
+      end
+   end
+
+   if !user_voted      
+      vote = Vote.new(:user_id => current_user.id, :answer_id =>  params[:id], :vote => -1)
+      vote.save
+   end
+
    redirect "/questions"
 
 end
-

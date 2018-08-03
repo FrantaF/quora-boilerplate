@@ -83,8 +83,7 @@
 
     <!-- Delete Question -->
     <% if q.user_id == current_user.id %>
-    <form method="post" action="/delete_question">
-      <input value='<%= q.id %>' type="hidden" name="user[delete_question_id]">          
+    <form method="post" action="/delete_question/<%= q.id %>">          
       <button type="submit" value='delete_answer' class="form-control btn"/>Delete Question</button>
     </form>
     <% end %>
@@ -109,11 +108,29 @@
         <div class="comment-post">
           <p><%= a.content %></p>
         </div>
+        
+        <!-- Rating bar -->
+        <div class="col-sm-6">
+          <div class="progress">
+            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<% a.vote.count %>"
+              aria-valuemin="0" aria-valuemax="100" style="width:50%"> 
+            </div>
+          </div>
+        </div>
+
+        <!-- Vote Buttons -->
+
+        <form method="post" action="/vote_up/<%= a.id %>">          
+          <button type="submit" value='vote_up' class="form-control btn"/>Vote up</button>
+        </form>
+
+        <form method="post" action="/vote_down/<%= a.id %>">          
+          <button type="submit" value='vote_down' class="form-control btn"/>Vote down</button>
+        </form>
 
         <!-- Delete answer button -->
         <% if a.user_id == current_user.id %>
-        <form method="post" action="/delete_answer">
-          <input value='<%= a.id %>' type="hidden" name="user[delete_answer_id]">          
+        <form method="post" action="/delete_answer/<%= a.id %>">          
           <button type="submit" value='delete_answer' class="form-control btn"/>Delete Answer</button>
         </form>
         <% end %>

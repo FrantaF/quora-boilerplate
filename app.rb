@@ -13,16 +13,9 @@ enable :sessions
 
 
 
-# p Answer.first.question_id
-# Question.all.each do |question|
-#    p question.user.name
-#    p question.id
-# end
 
-# Answer.all.each do |answer|
-#    p answer.question_id
 
-# end
+
 
 
 
