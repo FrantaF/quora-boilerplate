@@ -22,7 +22,7 @@ get "/profile" do
   if logged_in? == nil
     redirect '/login'
  end
-
+ current_user
  erb :"profile"
 
 end

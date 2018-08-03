@@ -6,7 +6,7 @@ require_relative 'controllers/login_controller'
 require_relative 'controllers/users_controller'
 require_relative 'models/question'
 
-
+require 'time_difference'
 require 'sinatra/base'
 set :run, true #JUST FOR TESTING! SET IT TO TRUE TO RUN IN BROWSER
 enable :sessions
