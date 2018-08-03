@@ -1,79 +1,20 @@
- <!--Navbar Top Level-->
- <nav class="navbar topnav navbar-inverse fixed-top" role="navigation">
-  <div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav navbar-center" >
-
-      <li>
-        <a class="navbar-brand" href="questions">Quora</a>
-      </li>
-
-      <li>
-        <a class="nav-link" href="questions"><span class="fa fa-question fa-lg"></span> Quesitons</a>
-      </li>
-
-    </ul>
-
-    <ul class="nav navbar-nav navbar-right" >        
-      
-      <li>
-       <a class="glyphicon glyphicon-cog" title="Settings"></a>
-     </li>
-
-     <li>
-       <a title="Logout" href="logout" class="glyphicon glyphicon-log-out"></a>
-     </li>
-
-   </ul>
- </div>
-</nav><!-- Nav End -->
 
 <div class="container main-content">
 
   <!-- Welcome title -->
-  <div class="row">
-    <div class="col-12 pull-left">  
-      <h1>Welcome <%= @current_user.name %></h1>
-    </div>  
-  </div>
-
-  <!-- User Picture -->
-  <div class="row col-12">   
-
-    <div class="col-md-3 justify-left"> 
-      <img class="user-picture col-4 img-responsive" src="img/user.png" alt="default user">
-    </div>
-    
-    <div class="col-md-8 col-sm-offset-1">
-
-
-      <form class="col-8" method="post" action="/change-details" style="margin-top: 30px;">
-
-        <div class="form-group">
-          <label for="inputs">Name</label>
-          <input class="form-control input-sm" type="text" name="user[name]">
-        </div>
-
-        <div class="form-group">
-          <label for="inputdefault">Original Password</label>
-          <input class="form-control" type="password" name="user[original_password]">
-        </div>                 
-
-        <div class="form-group">
-          <label for="inputdefault">New Password</label>
-          <input class="form-control" id="inputdefault" type="password" name="user[new_password]">
-        </div>                 
-
-        <div class="form-group">
-          <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-              <button type="submit" value="change-details" class="form-control btn btn-register"/>Change Details</button>
-            </div>
-          </div>
-        </div>
-
-      </form>
+  <div class="col col-md-12">
+    <div class="row">    
+      <h1>Welcome <%= @current_user.name %></h1>    
     </div>
   </div>
+
+  <!--Default User Picture -->
+  <div class="col col-md-12">
+    <div class="row">
+      <img class="user-picture img-responsive center-block"  src="img/user.png" alt="default user">
+    </div>
+  </div>
+
 </div>
 
 

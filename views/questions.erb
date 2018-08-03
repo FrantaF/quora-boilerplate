@@ -1,31 +1,3 @@
- <!--Navbar Top Level-->
- <nav class="navbar topnav navbar-inverse" role="navigation">
-  <div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav navbar-left" style="position: absolute; left: 19%;">
-
-      <li>
-        <a class="navbar-brand" href="questions">Quora</a>
-      </li>
-
-      <li>
-        <a class="nav-link" href="questions"><span class="fa fa-question fa-lg"></span> Quesitons</a>
-      </li>
-
-    </ul>
-    <ul class="nav navbar-nav navbar-right" style="position: absolute; right: 20%;">        
-
-      <li>
-       <a class="glyphicon glyphicon-cog" title="Settings"></a>
-     </li>
-
-     <li>
-       <a title="Logout" href="logout" class="glyphicon glyphicon-log-out"></a>
-     </li>
-
-   </ul>
-   
- </div>
-</nav><!-- Nav End -->
 
 <div class="container main-content">
 
@@ -63,7 +35,6 @@
 
         <ul class="list-inline list-unstyled">
 
-          <!-- ((DateTime.now - q.created_at) / 3600).round -->
           <li><span><i class="glyphicon glyphicon-calendar"></i><%= TimeDifference.between(Time.current, q.created_at).in_hours %>h  </span></li>
           <li>|</li>
 
@@ -112,15 +83,18 @@
         <!-- Rating bar -->
         <div class="col-sm-6">
           <div class="progress">
-            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<% a.vote.count %>"
-              aria-valuemin="0" aria-valuemax="100" style="width:50%"> 
+            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow='<%= count_votes(a.id)%>' aria-valuemin="0" aria-valuemax="100" style="width:50%"> 
             </div>
           </div>
         </div>
 
         <!-- Vote Buttons -->
+        <div class="btn-group btn-group-justified">
+          <a href="#" class="btn btn-primary">Apple</a>
+          <a href="#" class="btn btn-primary">Samsung</a>
+        </div>
 
-        <form method="post" action="/vote_up/<%= a.id %>">          
+        <form class="btn-group btn-group-justified" method="post" action="/vote_up/<%= a.id %>">          
           <button type="submit" value='vote_up' class="form-control btn"/>Vote up</button>
         </form>
 
@@ -144,7 +118,7 @@
 </div>
 <% end %>
 
-<!-- Post an answer box -->
+<!-- Answer text-box -->
 <form method="post" action="/answer">
 
   <div class="form-group">

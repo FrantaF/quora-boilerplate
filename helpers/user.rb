@@ -22,3 +22,7 @@ helpers do
     session[:user_id] = nil
   end
 end
+
+def count_votes(answer_id)
+ Vote.where(answer_id: answer_id).count.to_i
+end

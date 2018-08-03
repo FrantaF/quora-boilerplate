@@ -31,7 +31,35 @@
 </head>
 
 <body>  
-  <%= yield %>
+ <!--Navbar Top Level-->
+ <nav class="navbar topnav navbar-inverse fixed-top" role="navigation">
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav navbar-center" >
+
+      <li>
+        <a class="navbar-brand" href="questions">Quora</a>
+      </li>
+
+      <li>
+        <a class="nav-link" href="questions"><span class="fa fa-question fa-lg"></span> Questions</a>
+      </li>
+
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right" >        
+
+      <li>
+        <a class="glyphicon glyphicon-cog" href="/profile" title="Settings"></a>
+      </li>
+
+      <li>
+       <a title="Logout" href="logout" class="glyphicon glyphicon-log-out"></a>
+     </li>
+
+   </ul>
+ </div>
+</nav><!-- Nav End -->
+<%= yield %>
 </body>
 
 <footer class="footer navbar-inverse">

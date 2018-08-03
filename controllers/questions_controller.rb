@@ -71,8 +71,7 @@ post "/vote_up/:id" do
 
    if !user_voted      
       vote = Vote.new(:user_id => current_user.id, :answer_id =>  params[:id], :vote => 1)
-      vote.save
-      
+      vote.save      
    end
 
    redirect "/questions"
@@ -105,3 +104,4 @@ post "/vote_down/:id" do
    redirect "/questions"
 
 end
+
