@@ -6,7 +6,7 @@
     <div class="form-group">
       <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
-          <h4 class="col-sm-offset-4"><label for="inputs">What is your Question?</label></h4>
+          <h1 class=""><label for="inputs">What is your Question?</label></h1>
           <input class="form-control input-sm" id="inputsm" type="text" name="user[question]">
         </div>
       </div>
@@ -29,36 +29,48 @@
     <div class="media">        
       <div class="media-body">
 
-        <h4 class="media-heading"><%= q.content %></h4>   
+        <h2 class=""><%= q.content %></h2>   
 
-        <p class="text-right"><%= q.user.name %></p>
+        <p class=""></p>
 
         <ul class="list-inline list-unstyled">
 
-          <li><span><i class="glyphicon glyphicon-calendar"></i><%= TimeDifference.between(Time.current, q.created_at).in_hours %>h  </span></li>
+          <button type="button" class="btn btn-success btn-sm" action="/vote_up_question/<%= q.id %>">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+          
+          <li>|</li>          
+          <a href="profile/<%= q.user.id %>"><%= q.user.name %></a>
+
+          <li>|</li>          
+          <li><span><i class="glyphicon glyphicon-calendar"></i><%= q.created_at%></span></li>
           <li>|</li>
 
           <span><i class="glyphicon glyphicon-comment"></i> <%= q.answers.count %> Answers</span>
-          <li>|</li>
-          <li>
-            <!-- This will be the voting feature. Content will be sorted in the back-end and then printed out -->
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star-empty"></span>
-          </li>            
+          <li>|</li>          
+
+          <button type="button" class="btn btn-danger btn-sm" action="/vote_down_question/<%= q.id %>">
+            <span class="glyphicon glyphicon-minus"></span>
+          </button>
+
+        </ul>
+
+        <ul class="list-inline list-unstyled">
+          <a>Show answers</a>
+          <li>|</li>        
+          <a>Answer Question</a>  
         </ul>
       </div>
     </div>
 
     <!-- Delete Question -->
     <% if q.user_id == current_user.id %>
-    <form method="post" action="/delete_question/<%= q.id %>">          
-      <button type="submit" value='delete_answer' class="form-control btn"/>Delete Question</button>
+
+    <form method="post" action="/delete_question/<%= q.id %>">                
+      <button type="submit" value='delete_answer' class="form-control btn btn-warning"/>Delete Question</button>
     </form>
-    <% end %>
-    <!-- <p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i>Delete Question</a></p> -->
+
+    <% end %>    
   </div>
 </div>
 
@@ -69,47 +81,37 @@
  <article class="row">
 
    <div class="col-md-8 col-sm-8 col-sm-offset-2">
-     <div class="panel panel-default arrow left">
-       <div class="panel-heading right">Answer</div>
-       <div class="panel-body">
-         <header class="text-left">
-          <div class="comment-user"><i class="fa fa-user"></i><%= a.user.name %></div>
-          <time class="comment-date"><i class="fa fa-clock-o"></i> <%= a.updated_at %></time>
-        </header>
+    <div class="panel panel-default arrow left">      
+      <div class="panel-body">
+
         <div class="comment-post">
-          <p><%= a.content %></p>
-        </div>
-        
-        <!-- Rating bar -->
-        <div class="col-sm-6">
-          <div class="progress">
-            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow='<%= count_votes(a.id)%>' aria-valuemin="0" aria-valuemax="100" style="width:50%"> 
-            </div>
-          </div>
+          <h3><%= a.content %></h3>
         </div>
 
-        <!-- Vote Buttons -->
-        <div class="btn-group btn-group-justified">
-          <a href="#" class="btn btn-primary">Apple</a>
-          <a href="#" class="btn btn-primary">Samsung</a>
-        </div>
+        <ul class="list-inline list-unstyled">
 
-        <form class="btn-group btn-group-justified" method="post" action="/vote_up/<%= a.id %>">          
-          <button type="submit" value='vote_up' class="form-control btn"/>Vote up</button>
-        </form>
+          <button type="button" class="btn btn-success btn-sm" action="/vote_up_answer/<%= a.id %>">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
 
-        <form method="post" action="/vote_down/<%= a.id %>">          
-          <button type="submit" value='vote_down' class="form-control btn"/>Vote down</button>
-        </form>
+          <li>|</li>          
+          <li><a href="profile/<%= a.user.id %>"><%= a.user.name %></a></li>
+          <li>|</li>
+
+          <time class="comment-date"><i class="fa fa-clock-o"></i> <%= TimeDifference.between(Time.current, a.updated_at).in_hours %>h ago</time>
+
+          <li>|</li>    
+
+          <button type="button" class="btn btn-danger btn-sm" action="/vote_down_answer/<%= a.id %>">
+            <span class="glyphicon glyphicon-minus"></span>
+          </button>
+
+        </ul>      
 
         <!-- Delete answer button -->
-        <% if a.user_id == current_user.id %>
-        <form method="post" action="/delete_answer/<%= a.id %>">          
-          <button type="submit" value='delete_answer' class="form-control btn"/>Delete Answer</button>
-        </form>
-        <% end %>
-        <!-- <p class="text-right"><a href="#" value='< %= q.id %>' class="btn btn-default btn-sm"><i class="fa fa-reply"></i>Delete answer</a></p> -->
-
+        <% if a.user_id == current_user.id %>        
+        <button type="submit" value='delete_answer' class="form-control btn" action="/delete_answer/<%= a.id %>"/>Delete Answer</button>        
+        <% end %>        
 
       </div>
     </div>
@@ -123,8 +125,7 @@
 
   <div class="form-group">
     <div class="row">
-      <div class="col-sm-6 col-sm-offset-3">
-        <h6 class="col-sm-offset-4"><label for="inputs">Answer this question</label></h6>
+      <div class="col-sm-6 col-sm-offset-3">        
         <input class="form-control input-sm" id="inputsm" type="text" name="user[answer]">
         <input value='<%= q.id %>' type="hidden" name="user[question_id]">
       </div>
