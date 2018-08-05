@@ -1,4 +1,38 @@
+<script type="text/javascript">
 
+  function displayAnswerBox(id){   
+
+    if (id==="show-answer-box"){
+      document.getElementById("answer-box").style.display = "block"
+      document.getElementById("show-answer-box").innerHTML = "Hide Answer Box"
+      document.getElementById("show-answer-box").setAttribute("id", "hide-answer-box");
+
+    } else{
+      document.getElementById("answer-box").style.display = "none"      
+      document.getElementById("hide-answer-box").setAttribute("id", "show-answer-box");
+      document.getElementById("show-answer-box").innerHTML = "Answer Question"
+    }
+  }
+
+  function changeAnswerDisplay(id){   
+
+    if (id==="show-answers"){
+      document.getElementById("display-answers").style.display = "block"
+      displayAnswerBox("show-answer-box")
+      document.getElementById("show-answers").innerHTML = "Hide Answers"
+      document.getElementById("show-answers").setAttribute("id", "hide-answers");
+
+    } else{
+      document.getElementById("display-answers").style.display = "none"      
+      document.getElementById("hide-answers").setAttribute("id", "show-answers");
+      document.getElementById("show-answers").innerHTML = "Show Answers"
+      displayAnswerBox("hide-answer-box")
+    }
+
+  }
+
+
+</script>
 <div class="container main-content">
 
   <form method="post" action="/questions">
@@ -24,8 +58,11 @@
 
   <!-- Displpay Questions -->  
   <% @questions.each do |q| %>
-  <div class="container" style="margin-top: 30px;">
-   <div class="well">
+  <div class="container">
+    <div class="well" style="margin-bottom: 10px;
+    padding-bottom: 0px;    
+    margin-top: 0px; 
+    padding-top: 0px;">
     <div class="media">        
       <div class="media-body">
 
@@ -38,7 +75,7 @@
           <button type="button" class="btn btn-success btn-sm" action="/vote_up_question/<%= q.id %>">
             <span class="glyphicon glyphicon-plus"></span>
           </button>
-          
+
           <li>|</li>          
           <a href="profile/<%= q.user.id %>"><%= q.user.name %></a>
 
@@ -56,10 +93,11 @@
         </ul>
 
         <ul class="list-inline list-unstyled">
-          <a>Show answers</a>
+          <a id="show-answers" onclick="changeAnswerDisplay(this.id)">Show Answers</a>
           <li>|</li>        
-          <a>Answer Question</a>  
+          <a id="show-answer-box" onclick="displayAnswerBox(this.id)">Answer Question</a>  
         </ul>
+
       </div>
     </div>
 
@@ -75,72 +113,76 @@
 </div>
 
 <!-- Display answers -->
-<% if q.answers.count != 0 %>
-<% q.answers.each do |a| %>
-<div class="container">
- <article class="row">
+<div class="col-12" id="display-answers" style="display: none;">
+  <% if q.answers.count != 0 %>
+  <% q.answers.each do |a| %>
+  <div class="container" style="margin-top: 0px; padding-top: 0px;">
+   <article class="row">
 
-   <div class="col-md-8 col-sm-8 col-sm-offset-2">
-    <div class="panel panel-default arrow left">      
-      <div class="panel-body">
+     <div class="col-md-8 col-sm-8 col-sm-offset-2">
+      <div class="panel panel-default arrow left">      
+        <div class="panel-body">
 
-        <div class="comment-post">
-          <h3><%= a.content %></h3>
+          <div class="comment-post">
+            <h3><%= a.content %></h3>
+          </div>
+
+          <ul class="list-inline list-unstyled">
+
+            <button type="button" class="btn btn-success btn-sm" action="/vote_up_answer/<%= a.id %>">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+
+            <li>|</li>          
+            <li><a href="profile/<%= a.user.id %>"><%= a.user.name %></a></li>
+            <li>|</li>
+
+            <time class="comment-date"><i class="fa fa-clock-o"></i> <%= TimeDifference.between(Time.current, a.updated_at).in_hours %>h ago</time>
+
+            <li>|</li>    
+
+            <button type="button" class="btn btn-danger btn-sm" action="/vote_down_answer/<%= a.id %>">
+              <span class="glyphicon glyphicon-minus"></span>
+            </button>
+
+          </ul>      
+
+          <!-- Delete answer button -->
+          <% if a.user_id == current_user.id %>        
+          <button type="submit" value='delete_answer' class="form-control btn" action="/delete_answer/<%= a.id %>"/>Delete Answer</button>        
+          <% end %>        
+
         </div>
-
-        <ul class="list-inline list-unstyled">
-
-          <button type="button" class="btn btn-success btn-sm" action="/vote_up_answer/<%= a.id %>">
-            <span class="glyphicon glyphicon-plus"></span>
-          </button>
-
-          <li>|</li>          
-          <li><a href="profile/<%= a.user.id %>"><%= a.user.name %></a></li>
-          <li>|</li>
-
-          <time class="comment-date"><i class="fa fa-clock-o"></i> <%= TimeDifference.between(Time.current, a.updated_at).in_hours %>h ago</time>
-
-          <li>|</li>    
-
-          <button type="button" class="btn btn-danger btn-sm" action="/vote_down_answer/<%= a.id %>">
-            <span class="glyphicon glyphicon-minus"></span>
-          </button>
-
-        </ul>      
-
-        <!-- Delete answer button -->
-        <% if a.user_id == current_user.id %>        
-        <button type="submit" value='delete_answer' class="form-control btn" action="/delete_answer/<%= a.id %>"/>Delete Answer</button>        
-        <% end %>        
-
       </div>
     </div>
-  </div>
-</article>
+  </article>
 </div>
 <% end %>
+</div>
 
 <!-- Answer text-box -->
-<form method="post" action="/answer">
+<div id="answer-box" style="display: none;">
+  <form method="post" action="/answer">
 
-  <div class="form-group">
-    <div class="row">
-      <div class="col-sm-6 col-sm-offset-3">        
-        <input class="form-control input-sm" id="inputsm" type="text" name="user[answer]">
-        <input value='<%= q.id %>' type="hidden" name="user[question_id]">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">        
+          <input class="form-control input-sm" id="inputsm" type="text" name="user[answer]">
+          <input value='<%= q.id %>' type="hidden" name="user[question_id]">
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <div class="row">
-      <div class="col-sm-6 col-sm-offset-3">
-        <button type="submit" value="question" class="form-control btn btn-success"/>Answer</button>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <button type="submit" value="question" class="form-control btn btn-success"/>Answer</button>
+        </div>
       </div>
     </div>
-  </div>
 
-</form>
+  </form>
+</div>
 <% end %>
 <% end %>
 </div>

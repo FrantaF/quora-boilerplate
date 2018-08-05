@@ -103,7 +103,12 @@
 	.profile-form{
 		margin-top: 30px;
 	}
-
+	.well{
+		margin-bottom: 10px;
+		padding-bottom: 0px;		
+		margin-top: 0px; 
+		padding-top: 0px;
+	}
 	/* Footer */
 	.footer {
 		position: fixed;
