@@ -8,7 +8,7 @@ post '/login' do
     user_id = User.find_by(email: params[:user][:email]).id
     session[:user_id] = user_id
     name = User.find_by(email: params[:user][:email]).name
-    redirect '/profile'
+    redirect "/profile/#{user_id}"
   end
 end
 

@@ -6,8 +6,7 @@ class CreateVotes < ActiveRecord::Migration[5.0]
       create_table :votes do |t|
          t.belongs_to :user, index: true
          t.belongs_to :answer, index: true
-         t.integer :vote_up        
-         t.integer :vote_down        
+         t.integer :vote  
 
          t.timestamps
       end

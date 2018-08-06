@@ -8,9 +8,12 @@ require_relative 'models/question'
 
 require 'time_difference'
 require 'sinatra/base'
-set :run, true #JUST FOR TESTING! SET IT TO TRUE TO RUN IN BROWSER
+set :run, true
 enable :sessions
 
+after do
+  ActiveRecord::Base.clear_active_connections!
+end
 
 
 

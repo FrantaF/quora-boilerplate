@@ -8,8 +8,7 @@ class CreateAnswers < ActiveRecord::Migration[5.0]
          t.belongs_to :question, index: true
          t.string :content
          t.timestamps
-
-         t.references :vote, index: true
+         
       end
    end
 end
